@@ -36,8 +36,8 @@ void startAnt(int **board, int rows, int columns, int moves)
 /**********************************************************************
 ** Description: writeMatrix takes a pointer to a 2-d array(board), and
 ** the # of rows and columns. To randomly write the board with "blank"
-** and "black" spaces, rand() is utilized to generate a random number, 
-** if the number is divisible by 2, 0 is written to the space to rep. 
+** and "black" spaces, rand() is utilized to generate a random number,
+** if the number is divisible by 2, 0 is written to the space to rep.
 ** a blank space, and if it's not, 1 is written to the space to rep. a
 ** black space.
 **********************************************************************/
@@ -45,8 +45,8 @@ void startAnt(int **board, int rows, int columns, int moves)
 void writeMatrix(int **board, int rows, int columns)
 {
     srand(static_cast<unsigned int>(time(NULL)));
-    
-    
+
+
     for(int i=0; i<rows; i++)
     {
         for(int j=0; j<columns; j++)
@@ -61,7 +61,7 @@ void writeMatrix(int **board, int rows, int columns)
             }
         }
     }
-    
+
 }
 
 
@@ -73,37 +73,37 @@ void writeMatrix(int **board, int rows, int columns)
 ** -hen the location value gets changed to 1 "black".  It must travel 1
 ** index location to the right. Thus, if the ant is facing  north, then
 ** it is now facing the direction east and will move one column forward
-** in this direction. Therefore, everytime the ant is at a 0 ("blank"), 
+** in this direction. Therefore, everytime the ant is at a 0 ("blank"),
 ** it needs to turn clock wise once and move forward. So the switch sta
 ** -tement for 0 operates in this fashion, i.e. if at 0 and facing north
-** ,face east, if facing east, face south, if facing south, face west, 
+** ,face east, if facing east, face south, if facing south, face west,
 ** if facing west, face north. The opposite occurs when the ant is at a
 ** 1 ("black"), it needs to turn counter clock wise once. So the switch
 ** statement for 1 operates in this fashion: if  at 1 and facing north,
 ** face west,  if facing west, face south,  if facing south, face east,
 ** if facing east, face north.  Each time the ant moves a new direction
 ** east  or south, it's new  location  is calculated based on the fact
-** the new ant column or  row will  be the remainder of the current ant 
+** the new ant column or  row will  be the remainder of the current ant
 ** column (or row) + 1 divided by the total number of columns. When the
-** ant neeeds to go north or west, to prevent  the aunt from  traveling 
-** off the board when it is going west or north, if/else statements are 
+** ant neeeds to go north or west, to prevent  the aunt from  traveling
+** off the board when it is going west or north, if/else statements are
 ** utilized.
 **********************************************************************/
 
 void antMove(int **board, int rows, int columns, int antRow, int antCol, int moves)
 {
-    
+
     enum direction {n, e, s, w};
     direction antDir = n;
-    
+
     int moveCount = 0;
-    
+
     std::cout << "Starting Ant Row   : " << antRow << std::endl;
     std::cout << "Starting Ant Column: " << antCol << std::endl << std::endl;
-    
+
     while(moveCount < moves)
     {
-        
+
         std::cout << "MOVE: " << moveCount + 1 << std::endl;
         std::cout << "ANT DIRECTION: ";
         if(antDir == n)
@@ -122,12 +122,12 @@ void antMove(int **board, int rows, int columns, int antRow, int antCol, int mov
         {
             std::cout << "<";
         }
-        
-        printMatrix(board, rows, columns, antRow, antCol);
-        
-        
+
+
         if ( board[antRow][antCol] == 0)
         {
+            std::cout << " on an empty space, moving right ";
+            printMatrix(board, rows, columns, antRow, antCol);
             board[antRow][antCol] = 1;
             moveCount++;
             switch(antDir)
@@ -174,6 +174,8 @@ void antMove(int **board, int rows, int columns, int antRow, int antCol, int mov
         }
         else
         {
+            std::cout << " on a black space, moving left"; 
+            printMatrix(board, rows, columns, antRow, antCol);
             board[antRow][antCol] = 0;
             moveCount++;
             switch(antDir)
@@ -218,9 +220,9 @@ void antMove(int **board, int rows, int columns, int antRow, int antCol, int mov
                 }
             }
         }
-        
+
     }
-    
+
 }
 
 /**********************************************************************
